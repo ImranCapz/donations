@@ -41,22 +41,11 @@ export default function App() {
           },
         }
       );
-
-      console.log("Response:", response);
-
-      if (response.data.success) {
-        setResult("Donation sent successfully!");
-      } else {
-        setResult("Failed to send donation!");
-      }
+      console.log("Response:", response.data);
+      setResult("Donation sent successfully!");
     } catch (error) {
-      if (error.response) {
-        console.log("Error Response Data:", error.response.data);
-        console.log("Error Response Status:", error.response.status);
-        console.log("Error Response Headers:", error.response.headers);
-      } else {
-        console.log("Error Message:", error.message);
-      }
+      console.error("Error:", error);
+      setResult("Failed to send donation!");
     }
   };
 
@@ -85,10 +74,7 @@ export default function App() {
           title="Paytm"
           onPress={() => setMessage("Received From Paytm")}
         />
-        <Button 
-        title="Own"
-        onPress={() => setMessage('')}
-        />
+        <Button title="Own" onPress={() => setMessage("")} />
       </SafeAreaView>
       <Text>Amount</Text>
       <TextInput
