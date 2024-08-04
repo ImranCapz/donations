@@ -5,6 +5,7 @@ import {
   Button,
   StyleSheet,
   Text,
+  Image,
   View,
 } from "react-native";
 import axios from "axios";
@@ -26,9 +27,10 @@ export default function App() {
       amount: amount,
       currency: currency,
     };
-
-    console.log("Alert Data:", alertData);
-
+    if (!name || !Message || !amount) {
+      setResult("Please fill all the fields");
+      return;
+    }
     try {
       const response = await axios.post(
         "https://streamlabs.com/api/v1.0/donations",
@@ -60,6 +62,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Image source={require("./assets/lalayt.jpg")} style={styles.image} />
       <Text>Name</Text>
       <TextInput
         style={{ height: 30, width: 200, borderColor: "gray", borderWidth: 1 }}
@@ -82,15 +85,25 @@ export default function App() {
           title="Paytm"
           onPress={() => setMessage("Received From Paytm")}
         />
+        <Button 
+        title="Own"
+        onPress={() => setMessage('')}
+        />
       </SafeAreaView>
       <Text>Amount</Text>
       <TextInput
-        style={{ height: 30, width: 200, borderColor: "gray", borderWidth: 1 }}
+        style={{
+          height: 30,
+          width: 200,
+          borderColor: "gray",
+          borderWidth: 1,
+          marginBottom: 20,
+        }}
         onChangeText={setAmount}
         value={amount}
       />
       <Button title="Send Donation" onPress={SendAlert} />
-      <Text>{result}</Text>
+      <Text style={{ marginTop: 20 }}>{result}</Text>
     </SafeAreaView>
   );
 }
@@ -106,5 +119,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginVertical: 10,
+    gap: 10,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 20,
   },
 });
