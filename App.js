@@ -17,7 +17,7 @@ export default function App() {
   const [amount, setAmount] = useState(0);
   const [currency, setCurrency] = useState("INR");
   const [result, setResult] = useState("");
-  const { CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN } = ENV;
+  const { CLIENT_ID, CLIENT_SECRET, ACCESS_TOKEN } = ENV.dev;
 
   const SendAlert = async () => {
     const alertData = {
@@ -27,7 +27,7 @@ export default function App() {
       amount: amount,
       currency: currency,
     };
-    if (!name || !Message || !amount) {
+    if (!name || !message || !amount) {
       setResult("Please fill all the fields");
       return;
     }
